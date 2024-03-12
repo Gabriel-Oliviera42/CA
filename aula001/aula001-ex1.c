@@ -8,10 +8,7 @@ float pot(float x, int n) {
     } else if (n > 0) {
         // Caso positivo: x^n = x * x^(n-1)
         return x * pot(x, n - 1);
-    } else {
-        // Caso negativo: x^(-n) = 1 / (x^n), tratando números negativos
-        return 1.0 / (x * pot(x, -(n + 1)));
-    }
+    }   // Caso usase negativo provavelmtente seria tipo assim: 1.0 / (x * pot(x, -(n + 1)))
 }
 
 int main() {

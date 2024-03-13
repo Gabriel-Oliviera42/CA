@@ -65,6 +65,53 @@ void posordem(struct TreeNode *root) {
     }
 }
 
+int buscar(struct TreeNode *root, int newInfo) {
+    if(root == NULL) {
+        return -1; 
+    } else {
+        if (root -> info == newInfo) {
+            return root -> info;
+        } else {
+            if (newInfo < root -> info) {
+                return buscar(root -> left, newInfo);
+            } else {
+                return buscar(root -> right, newInfo);
+            }
+        }
+    }
+}
+
+struct TreeNode *remover (struct TreeNode *root, int newInfo)  {
+    if(root == NULL) {
+        printf("Valor não encontrado!");
+        return NULL;
+    } else {
+        if(root -> info == newInfo) {
+            if(root -> left == NULL && root -> right == NULL) {
+                free(root);
+                return NULL;
+            } else {
+                if (root -> left == NULL || root -> right == NULL) {
+                    struct TreeNode *aux;
+                    if (root -> left != NULL) {
+                        aux = root -> left;
+                    } else {
+                        aux = root -> right;
+                    }
+                    free (root);
+                    return aux;
+                }
+            }
+        } else {
+            if(newInfo < root -> info) {
+                root -> left = remover (root -> left, newInfo);
+            } else {
+                root -> left = remover (root -> right, newInfo);
+            }
+            return root;
+        }
+    }
+}
 
 int main(void) {
     struct TreeNode *root = NULL;
@@ -76,6 +123,8 @@ int main(void) {
     root = inserir(root, 4);
     root = inserir(root, 17);
     root = inserir(root, 13);
+
+    remover (root, 4);
     
     printf("Pré-ordem: ");
     preordem (root);
@@ -88,6 +137,9 @@ int main(void) {
     printf("Pós-ordem: ");
     posordem (root);
     printf("\n");
+
+    printf("Resultado da busca: %d\n", buscar(root, 7));
+    printf("Resultado da busca: %d\n", buscar(root, 20));
 
     return 0;
 }

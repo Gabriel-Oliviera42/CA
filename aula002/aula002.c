@@ -100,6 +100,16 @@ struct TreeNode *remover (struct TreeNode *root, int newInfo)  {
                     }
                     free (root);
                     return aux;
+                } else {
+                    struct TreeNode *aux = root -> left;
+                    while (aux -> right != NULL)
+                    {
+                        aux = aux -> right;
+                    }
+                    root -> info = aux -> info;
+                    aux -> info = newInfo;
+                    root -> left = remover(root -> left, newInfo);
+                    return root;
                 }
             }
         } else {
@@ -124,7 +134,7 @@ int main(void) {
     root = inserir(root, 17);
     root = inserir(root, 13);
 
-    remover (root, 4);
+    remover (root, 5);
     
     printf("Pré-ordem: ");
     preordem (root);

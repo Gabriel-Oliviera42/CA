@@ -82,45 +82,7 @@ int buscar(struct TreeNode *root, int newInfo) {
 }
 
 struct TreeNode *remover (struct TreeNode *root, int newInfo)  {
-    if(root == NULL) {
-        printf("Valor não encontrado!");
-        return NULL;
-    } else {
-        if(root -> info == newInfo) {
-            if(root -> left == NULL && root -> right == NULL) {
-                free(root);
-                return NULL;
-            } else {
-                if (root -> left == NULL || root -> right == NULL) {
-                    struct TreeNode *aux;
-                    if (root -> left != NULL) {
-                        aux = root -> left;
-                    } else {
-                        aux = root -> right;
-                    }
-                    free (root);
-                    return aux;
-                } else {
-                    struct TreeNode *aux = root -> left;
-                    while (aux -> right != NULL)
-                    {
-                        aux = aux -> right;
-                    }
-                    root -> info = aux -> info;
-                    aux -> info = newInfo;
-                    root -> left = remover(root -> left, newInfo);
-                    return root;
-                }
-            }
-        } else {
-            if(newInfo < root -> info) {
-                root -> left = remover (root -> left, newInfo);
-            } else {
-                root -> left = remover (root -> right, newInfo);
-            }
-            return root;
-        }
-    }
+    
 }
 
 int main(void) {
